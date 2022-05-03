@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61d1d282-4292-4c59-a895-f1665d75207a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Fire_Sale/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +25,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/beast/Desktop/django-projects/fire_sale"
+    "last_opened_file_path": "C:/Users/beast/Documents/GitHub/vln2/Fire_Sale"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -38,6 +37,8 @@
       <option name="presentableId" value="Default" />
       <updated>1651515191305</updated>
       <workItem from="1651515192525" duration="72000" />
+      <workItem from="1651581566840" duration="8000" />
+      <workItem from="1651581579908" duration="18000" />
     </task>
     <servers />
   </component>
