@@ -3,4 +3,13 @@
     <div class="product">
         <h2>Welcome to the products app</h2>
     </div>
+    {% for product in products %}
+        {% if product.price > 10000 %}
+            <p>Expensive</p>
+        {% else %}
+        <p>Not so expensive</p>
+        {% endif %}
+        <h4> {{ product.name }}</h4>
+        <p> {{ product.price }}kr.</p>
+    {% endfor %}
 {% endblock %}
