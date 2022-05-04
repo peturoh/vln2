@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'fire-sale-db',
         'USER': 'fire-sale-db-user',
-        'PASSWORD': 'Abc.12345',
+        'PASSWORD': '123',
         'HOST': '34.105.233.202',
         'PORT': '5432'
     }
