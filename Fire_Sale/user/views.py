@@ -6,13 +6,14 @@ from user.models import Profile
 # Create your views here.
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(data=request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login')
-    return render(request, 'user/register.html', {
-        'form': UserCreationForm()
-    })
+    else:
+        form = UserCreationForm()
+    return render(request, 'user/register.html', {'form': form})
+
 
 def profile(request):
     profile = Profile.objects.filter(user=request.user).first()
