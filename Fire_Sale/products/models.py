@@ -3,10 +3,6 @@ from django.db import models
 class ProductCategory(models.Model):
     name = models.CharField(max_length=255)
 
-class ProductImage(models.Model):
-    image = models.CharField(max_length=9999)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
 class Product(models.Model):
     name = models.CharField(max_length=255)
     condition = models.CharField(max_length=255)
@@ -20,3 +16,7 @@ class Product(models.Model):
     #price = models.FloatField()
     on_sale = models.BooleanField() #Er seljandi búinn að accepta annað tilboð
     #manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
+
+class ProductImage(models.Model):
+    image = models.CharField(max_length=9999)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
