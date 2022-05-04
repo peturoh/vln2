@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-    <form method="post" class="form form-horizontal">
+    <form class="form form-horizontal" method="post">
         {% csrf_token %}
-        {{ form }}
+        <div class="fieldWrapper">
+            {{ form.username.label }}:
+            {{ form.username }}
+        </div><br>
+        <div class="fieldWrapper">
+            {{ form.password.label }}:
+            {{ form.password }}
+        </div><br>
         <input type="submit" type="btn btn-primary" value="Login" />
     </form>
 {% endblock %}
