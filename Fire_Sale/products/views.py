@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from products.models import Product
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -11,6 +12,6 @@ def index(request):
 
 def get_product_by_id(request, id):
     return render(request, 'products/product_details.html', {
-        'products': get_object_or_404(Product, pk=id)
+        'product': get_object_or_404(Product, pk=id)
     })
 

@@ -4,6 +4,6 @@
     <p>{{ product.condition }}</p>
     <p>{{ product.description }}</p>
     {% for product_image in product.productimage_set.all %}
-        <img src="{{ product_image.image }}" class="product-img" />
+        <img class="img-rounded" src="{{ product_image.image }}" style=""/>
     {% endfor %}
 {% endblock %}
