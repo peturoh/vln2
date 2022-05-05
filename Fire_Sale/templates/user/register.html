@@ -1,20 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Sign up now!</h1>
+    <h1>Sign up now!</h1><br/>
     <form class="form form-horizontal" method="post">
         {% csrf_token %}
-        <div class="fieldWrapper">
-            {{ form.username.label }}:
-            {{ form.username }}
-        </div><br>
-        <div class="fieldWrapper">
-            {{ form.password1.label }}:
-            {{ form.password1 }}
-        </div><br>
-        <div class="fieldWrapper">
-            {{ form.password2.label }}:
-            {{ form.password2 }}
-        </div><br>
+        <div class="mb-3">
+            <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Username">
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" name="password1" placeholder="Password">
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" name="password2" placeholder="Re-enter password">
+        </div><br/>
         <input type="submit" class="btn btn-primary" value="Sign up" />
+        <p>{{ form.username.errors }}</p>
+        <p>{{ form.password2.errors }}</p>
     </form>
 {% endblock %}
