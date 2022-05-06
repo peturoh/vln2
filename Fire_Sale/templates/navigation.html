@@ -13,10 +13,13 @@
         </li>
           {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'profile' %}"><img src="{{ user.profile.profile_image }}" class="profile-image rounded-circle" /></a>
+              <a class="nav-link" href="{% url 'profile' %}">Profile</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}"><img src="{{ user.profile.profile_image }}" class="mx-auto profile-image rounded-circle float-end" /></a>
             </li>
           {% else %}
             <li class="nav-item">
