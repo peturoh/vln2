@@ -4,6 +4,10 @@
     <div class="container">
         <div class="grid">
             <div class="row">
+                <form method="get">
+                    {{ myFilter.form }}
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form><br/><br/>
                 {% for product in products %}
                 <div class="col-md-3 mb-4">
                     {% include 'products/single_product.html' with product=product %}
