@@ -1,9 +1,9 @@
 {% load static %}
 
-<div class="card shadow-lg">
+<div class="card shadow-lg" style="width: 18rem">
     <div class="card-body">
         <a href='/products/{{ product.id }}'>
-            <img class="img-fluid" src="{{ product.productimage_set.first.image }}" alt=""/>
+            <img class="img-fluid" src="{{ product.productimage_set.first.image }}" alt="card-image-cap"/>
             <h4>{{ product.name }}</h4>
             <p>{{ product.description }}</p>
         </a>
