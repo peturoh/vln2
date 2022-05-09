@@ -27,3 +27,17 @@ def profile(request):
     return render(request, 'user/profile.html', {
         'form': ProfileForm(instance=profile)
     })
+
+
+def editprofile(request):
+    editprofile = Profile.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        form = ProfileForm(instance=editprofile, data=request.POST)
+        if form.is_valid():
+            editprofile = form.save(commit=False)
+            editprofile.user = request.user
+            profile.save()
+            return redirect('profile')
+        return render(request, 'user/profile.html', {
+            'form': ProfileForm(instance=profile)
+        })
