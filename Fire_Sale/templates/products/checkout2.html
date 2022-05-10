@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <form name="CheckoutForm2" action="" method="post">
+        {% csrf_token %}
+        {{ wizard.management_form }}
+        <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="cc-name">Name on card</label>
+        <input type="text" name="{{ wizard.form.cardholder.html_name }}" class="form-control" id="cc-name" placeholder="" required>
+        <small class="text-muted">Full name as displayed on card</small>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="cc-number">Credit card number</label>
+        <input type="text" name="{{ wizard.form.cardnumber.html_name }}" class="form-control" id="cc-number" placeholder="" required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <label for="cc-expiration">Expiration</label>
+        <input type="text" name="{{ wizard.form.exp.html_name }}" class="form-control" id="cc-expiration" placeholder="" required>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="cc-expiration">CVV</label>
+        <input type="text" name="{{ wizard.form.cvc.html_name }}" class="form-control" id="cc-cvv" placeholder="" required>
+      </div>
+    </div>
+        {% if wizard.steps.prev %}
+        <button class="btn btn-secondary" name="wizard_goto_step" formnovalidate="formnovalidate" type="submit" value="{{ wizard.steps.first }}">{% trans "First step" %}</button>
+        <button class="btn btn-secondary" name="wizard_goto_step" formnovalidate="formnovalidate" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous step" %}</button>
+        {% endif %}
+        <input class="btn btn-secondary" type="submit" value="{% trans "Submit" %}"/>
+    </form>
+{% endblock %}
