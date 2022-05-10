@@ -14,30 +14,18 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'user/register.html', {'form': form})
 
-
 def profile(request):
-    profile = Profile.objects.filter(user=request.user).first()
+    profile_data = Profile.objects.filter(user=request.user).first()
     if request.method == 'POST':
-        form = ProfileForm(instance=profile, data=request.POST)
+        form = ProfileForm(instance=profile_data, data=request.POST)
         if form.is_valid():
-            profile = form.save(commit=False)
-            profile.user = request.user
-            profile.save()
+            form.save()
             return redirect('profile')
     return render(request, 'user/profile.html', {
-        'form': ProfileForm(instance=profile)
+        'form': ProfileForm(instance=profile_data)
     })
 
 
-def editprofile(request):
-    editprofile = Profile.objects.filter(user=request.user).first()
-    if request.method == 'POST':
-        form = ProfileForm(instance=editprofile, data=request.POST)
-        if form.is_valid():
-            editprofile = form.save(commit=False)
-            editprofile.user = request.user
-            profile.save()
-            return redirect('profile')
-        return render(request, 'user/profile.html', {
-            'form': ProfileForm(instance=profile)
-        })
+
+
+
