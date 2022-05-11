@@ -25,7 +25,16 @@ def profile(request):
         'form': ProfileForm(instance=profile_data)
     })
 
-
+def profile(request):
+    profile_data = Profile.objects.filter(user=request.user).first()
+    if request.method == 'POST':
+        form = ProfileForm(instance=profile_data, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    return render(request, 'user/profile.html', {
+        'form': ProfileForm(instance=profile_data)
+    })
 
 
 

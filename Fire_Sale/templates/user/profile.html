@@ -1,11 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Profile</h1>
+    <form>
+        <div class="card" style="width:26rem ">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h1>Profile</h1>
+                        <h3>Biography</h3>
+                        <p>{{ form.profile_bio }}</p>
+                        <input type="submit" class="btn btn-primary" value="Edit" />
+                        <input type="submit" class="btn btn-primary" value="Submit" />
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+
+<!--
+   <h1>Profile</h1>
     <form class="form form-horizontal" method="post">
         {% csrf_token %}
         <div class="mb-3">
             {{ form.as_p }}
-        </div>
-        <input type="submit" class="btn btn-primary" value="Update" />
-    </form>
-{% endblock %}
+         </div>
+            <input type="submit" class="btn btn-primary" value="Update" />
+        </form>
+    </div>
+</div>
+-->
