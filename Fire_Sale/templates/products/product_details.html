@@ -4,11 +4,11 @@
     <main class="pt-5">
         <div class="row g-3">
             <div class="col-md-5 col-lg-5 order-md-first bg-light">
-                <img class="img-fluid mx-auto d-block" width="200px" alt="Virkar ekki atm" scr="{{ product_image.image.url }}"/>
+                <img class="img-fluid mx-auto d-block" width="200px" alt="Virkar ekki atm" src="{{ product.productimage_set.first }}"/>
             </div>
             <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5">
                 <h1 class="mb-0 h4">{{ product.name }}</h1>
-                <p><span class="lead">{{ product.seller }}</span> (Author)</p>
+                <p><span class="lead">({{ product.seller }})</span></p>
                 <p>{{ product.condition }}</p>
                 <p>{{ product.description }}</p>
                 <div class="border">
