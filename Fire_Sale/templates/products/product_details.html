@@ -3,8 +3,8 @@
 <div class="container">
     <main class="pt-5">
         <div class="row g-3">
-            <div class="col-md-5 col-lg-5 order-md-first bg-light">
-                <img class="img-fluid mx-auto d-block" width="200px" alt="Virkar ekki atm" src="{{ product.productimage_set.first }}"/>
+            <div class="col-md-5 col-lg-3">
+                <img class="img-fluid w-100" alt="" src="{{ product.productimage_set.first }}"/>
             </div>
             <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5">
                 <h1 class="mb-0 h4">{{ product.name }}</h1>
@@ -27,7 +27,7 @@
             </div>
             <div class="pt-2">
             {% for product_image in product.productimage_set.all %}
-                <img class="img-thumbnail" width="400px" src="{{ product_image.image }}" style=""/>
+                <img class="img-thumbnail" width="300px" src="{{ product_image.image }}" style=""/>
             {% endfor %}
             </div>
     </main>
