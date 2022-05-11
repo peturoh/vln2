@@ -23,7 +23,7 @@ class Product(models.Model):
     on_sale = models.BooleanField() #Er seljandi búinn að accepta annað tilboð
 
     #Impossible to add a non-nullable field 'seller' to product without specifying a default.
-    #seller = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=False)
+    seller = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=False)
 
     def __str__(self):
         return self.name
@@ -35,3 +35,9 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return self.image
+
+
+class ProductOffer(models.Model):
+    bidder = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=False)
+    offer_amount = models.FloatField()
+
