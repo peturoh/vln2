@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Create a Product</h1><br/>
+        <div class="mb-3">
+            <input type="text" class="form-control" name="product_name" aria-describedby="emailHelp" placeholder="Name of product">
+            </div>
+        <div class="mb-3">
+             <textarea name="product_description" class="form-control" rows="6" cols="100" placeholder="Description"></textarea>
+             </div>
+        <label for="product_image">Choose a picture to represent your product:</label>
+        <input type="file" name="product_image" id="product_image" accept="image/png, image/jpeg">
+        <br/><br/>
+        <input type="submit" class="btn btn-primary" value="Sign up" />
+{% endblock %}
