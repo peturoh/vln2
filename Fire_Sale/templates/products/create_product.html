@@ -1,14 +1,30 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>Create a Product</h1><br/>
+    <form class="form form-horizontal" method="post">
+        {% csrf_token %}
         <div class="mb-3">
             <input type="text" class="form-control" name="product_name" aria-describedby="emailHelp" placeholder="Name of product">
-            </div>
+        </div>
         <div class="mb-3">
-             <textarea name="product_description" class="form-control" rows="6" cols="100" placeholder="Description"></textarea>
-             </div>
-        <label for="product_image">Choose a picture to represent your product:</label>
-        <input type="file" name="product_image" id="product_image" accept="image/png, image/jpeg">
-        <br/><br/>
-        <input type="submit" class="btn btn-primary" value="Sign up" />
+            <textarea name="product_description" class="form-control" rows="6" cols="100" placeholder="Description"></textarea>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" name="product_condition" aria-describedby="emailHelp" placeholder="Describe the condition of the product">
+        </div>
+        <div class="mb-3">
+            <label for="product_category">Choose a category</label>
+            <select name="product_category" id="product_category" class="form-control">
+                <option id="Category 1">Category 1</option>
+                <option id="Category 2">Category 2</option>
+                <option id="Category 3">Category 3</option>
+                <option id="Category 4">Category 4</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control" name="product_image_url" aria-describedby="emailHelp" placeholder="Product image url">
+        </div>
+        <br/>
+        <input type="submit" class="btn btn-primary" value="Create" />
+    </form>
 {% endblock %}
