@@ -20,6 +20,8 @@ def index(request):
                   {'products': products, 'myFilter': myFilter
     })
 
+def create(request):
+    return render(request, 'products/create_product.html')
 
 def get_product_by_id(request, id):
     return render(request, 'products/product_details.html', {
