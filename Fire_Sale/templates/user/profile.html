@@ -1,18 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
-    <form>
         <div class="card" style="width:26rem ">
             <div class="card shadow-lg">
                 <div class="card-body">
                     <h1>Profile</h1>
                         <h3>Biography</h3>
+                        <p style='display:none'> {{ form.user}} </p>
                         <p>{{ form.profile_bio }}</p>
-                        <input type="submit" class="btn btn-primary" value="Edit" />
-                        <input type="submit" class="btn btn-primary" value="Submit" />
+                        <input type="submit" class="btn btn-primary" value="Submit/Edit" />
                 </div>
             </div>
         </div>
-    </form>
 {% endblock %}
 
 
