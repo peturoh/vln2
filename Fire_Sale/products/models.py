@@ -42,3 +42,16 @@ class ProductOffer(models.Model):
     bidder = models.ForeignKey(User, on_delete=models.CASCADE, blank=False)
     offer_amount = models.FloatField()
 
+class OrderInformation(models.Model):
+    #buyerID?
+    #sellerID?
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=100)
+    address2 = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    zip = models.CharField(max_length=100)
+    cardholder = models.CharField(max_length=100)
+    cardnumber = models.CharField(max_length=19)
+    exp = models.CharField(max_length=5)
+    cvc = models.CharField(max_length=3)

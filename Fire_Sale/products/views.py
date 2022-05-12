@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import products.forms
-from products.models import Product
+from products.models import Product, OrderInformation
 from django.shortcuts import get_object_or_404
 from .filters import ProductFilter
 from formtools.wizard.views import SessionWizardView
@@ -45,8 +45,6 @@ class CheckoutWizard(SessionWizardView):
         context = super(CheckoutWizard, self).get_context_data(form=form, **kwargs)
         if self.steps.current == '2':
             context.update({'all_data': self.get_all_cleaned_data()})
-            print(context)
-            c = context['all_data']
         return context
 
     # def get_form_initial(self, step):
@@ -66,7 +64,20 @@ class CheckoutWizard(SessionWizardView):
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
 
-    def done(self, form_list, **kwargs):
+    def done(self, form_list, form_dict, **kwargs):
+        data = [form.cleaned_data for form in form_list]
+        order_info = OrderInformation()
+        order_info.name = data[0]['name']
+        order_info.address = data[0]['address']
+        order_info.address2 = data[0]['address2']
+        order_info.city = data[0]['city']
+        order_info.country = data[0]['country']
+        order_info.zip = data[0]['zip']
+        order_info.cardholder = data[1]['cardholder']
+        order_info.cardnumber = data[1]['cardnumber']
+        order_info.exp = data[1]['exp']
+        order_info.cvc = data[1]['cvc']
+        order_info.save()
         return render(self.request, 'done.html', {
             'form_data': [form.cleaned_data for form in form_list]
         })
