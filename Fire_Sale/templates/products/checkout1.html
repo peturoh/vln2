@@ -11,40 +11,45 @@
               <h4 class="mb-3">Billing address</h4>
               <form class="needs-validation" novalidate>
                 <div class="mb-3">
-                  <label for="username">Username</label>
+                  <label for="name">Name</label>
                   <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">@</span>
-                    </div>
-                    <input type="text" name="{{ wizard.form.username.html_name }}" class="form-control" id="username"
-                           placeholder="Username" required>
+                    <input type="text" name="{{ wizard.form.name.html_name }}" class="form-control" id="name"
+                           placeholder="Full name" required>
                   </div>
                 </div>
 
                 <div class="mb-3">
-                  <label for="address">Address</label>
-                  <input type="text" name="{{ wizard.form.address.html_name }}" class="form-control" id="address" placeholder="1234 Main St" required>
+                  <label for="address">Street name</label>
+                  <input type="text" name="{{ wizard.form.address.html_name }}" class="form-control" id="address" placeholder="Main St" required>
                 </div>
 
                 <div class="mb-3">
-                  <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                  <input type="text" name="{{ wizard.form.address2.html_name }}" class="form-control" id="address2" placeholder="Apartment or suite">
+                  <label for="address2">Street name 2</label>
+                  <input type="text" name="{{ wizard.form.address2.html_name }}" class="form-control" id="address2" placeholder="House nr./apartment" required>
+                </div>
+
+                <div class="mb-3">
+                  <label for="city">City</label>
+                  <input type="text" name="{{ wizard.form.city.html_name }}" class="form-control" id="city" placeholder="Example: Oslo" required>
                 </div>
 
                 <div class="row">
                   <div class="col-md-5 mb-3">
-                    <label for="country">Country</label>
-                    <select name="{{ wizard.form.country.html_name }}" class="custom-select d-block w-100" id="country" required>
-                      <option value="">Choose...</option>
-                      <option>United States</option>
+                    <label for="country" class="form-label">Country</label>
+                    <select name="{{ wizard.form.country.html_name }}" class="form-select" id="country" required>
+                        <option value="">Choose...</option>
+                        <option>United States</option>
+                        <option>Mexico</option>
+                        <option>Norway</option>
+                        <option>Iceland</option>
                     </select>
                     <div class="invalid-feedback">
                       Please select a valid country.
                     </div>
                   </div>
 
-                  <div class="col-md-3 mb-3">
-                    <label for="zip">Zip</label>
+                  <div class="col-md-5 mb-3">
+                    <label for="zip" class="form-label">Zip</label>
                     <input type="text" name="{{ wizard.form.zip.html_name }}" class="form-control" id="zip" placeholder="" required>
                   </div>
                 </div>

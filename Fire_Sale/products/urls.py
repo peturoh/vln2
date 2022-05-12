@@ -1,11 +1,11 @@
 from django.urls import path
 from . import views
-from products.forms import CheckoutForm1, CheckoutForm2
+from products.forms import CheckoutForm1, CheckoutForm2, CheckoutForm3
 from products.views import CheckoutWizard
 
 urlpatterns = [
     path('', views.index, name='product-index'),
     path('<int:id>', views.get_product_by_id, name="product-details"),
-    path('checkout/', CheckoutWizard.as_view([CheckoutForm1, CheckoutForm2])),
+    path('checkout/', CheckoutWizard.as_view([CheckoutForm1, CheckoutForm2, CheckoutForm3])),
     path('create/', views.create, name="create_product")
 ]
