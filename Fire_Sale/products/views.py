@@ -1,10 +1,10 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 import products.forms
 from products.models import Product, OrderInformation
 from django.shortcuts import get_object_or_404
 from .filters import ProductFilter
 from formtools.wizard.views import SessionWizardView
-
 
 
 FORMS = [("address", products.forms.CheckoutForm1),
@@ -15,24 +15,94 @@ TEMPLATES = {"0": "products/checkout1.html",
              "1": "products/checkout2.html",
              "2": "products/checkout3.html"}
 
-def index(request):
-    products = Product.objects.all()
-    myFilter = ProductFilter(request.GET, queryset=products)
-    products = myFilter.qs
-    return render(request, 'products/index.html',
-                  {'products': products, 'myFilter': myFilter
-    })
 
-def index_by_name(request):
-    products = Product.objects.all().order_by('name')
-    myFilter = ProductFilter(request.GET, queryset=products)
-    products = myFilter.qs
+def index(request):
+
+    if 'search_filter' in request.GET:
+        search_filter = request.GET['search_filter']
+
+        print(search_filter)
+
+        products_filter = [{
+            'id': x.id,
+            'firstImage': x.productimage_set.first().image,
+            'name': x.name,
+            'description': x.description
+        } for x in Product.objects.filter(name__icontains=search_filter)]
+
+        print(products_filter)
+
+        if 'sort_by' in request.GET:
+            sort_by = request.GET['sort_by']
+            if sort_by == '1':
+                sorted_list = sorted(products_filter, key=lambda d: d['name'])
+                return JsonResponse({'data': sorted_list, 'search': search_filter})
+            else:
+                return JsonResponse({'data': products_filter, 'search': search_filter})
+        else:
+            return JsonResponse({'data': products_filter, 'search': search_filter})
+
+    else:
+
+        if 'sort_by' in request.GET:
+            sort_by = request.GET['sort_by']
+            products_filter = [{
+                'id': x.id,
+                'firstImage': x.productimage_set.first().image,
+                'name': x.name,
+                'description': x.description
+            } for x in Product.objects.all()]
+
+            if sort_by == '1':
+                sorted_list = sorted(products_filter, key=lambda d: d['name'])
+                return JsonResponse({'data': sorted_list})
+            else:
+                return JsonResponse({'data': products_filter})
+
     return render(request, 'products/index.html',
-                  {'products': products, 'myFilter': myFilter
-    })
+                  {'products': Product.objects.all()})
+
+# DON'T DELETE YET JUST INCASE
+# def index(request):
+#     # products = Product.objects.all()
+#     # myFilter = ProductFilter(request.GET, queryset=products)
+#     # products = myFilter.qs
+#
+#     if 'search_filter' in request.GET:
+#         search_filter = request.GET['search_filter']
+#
+#         products_filter = [{
+#             'id': x.id,
+#             'firstImage': x.productimage_set.first().image,
+#             'name': x.name,
+#             'description': x.description
+#         } for x in Product.objects.filter(name__icontains=search_filter)]
+#         return JsonResponse({'data': products_filter, 'search': search_filter})
+#
+#     if 'sort_by' in request.GET:
+#         print()
+#         sort_by = request.GET['sort_by']
+#         print(sort_by)
+#         if sort_by == '1':
+#             print("asdf")
+#             products_filter = [{
+#                 'id': x.id,
+#                 'firstImage': x.productimage_set.first().image,
+#                 'name': x.name,
+#                 'description': x.description
+#             } for x in Product.objects.all().order_by('name')]
+#             print(products_filter)
+#             return JsonResponse({'data': products_filter})
+#             # print(products_filter)
+#             # return JsonResponse({'data': products_filter})
+#
+#     return render(request, 'products/index.html',
+#                   {'products': Product.objects.all()})
+
 
 def create(request):
     return render(request, 'products/create_product.html')
+
 
 def get_product_by_id(request, id):
     return render(request, 'products/product_details.html', {

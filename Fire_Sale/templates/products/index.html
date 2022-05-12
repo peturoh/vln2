@@ -2,16 +2,25 @@
 {% block content %}
     <h1 class="p-5">All Products</h1>
     <div class="container">
+        <div class="input-group">
+            <input type="search" class="form-control" id="search-box" placeholder="Enter search">
+            <div class="input-group-btn">
+                <button type="button" id="search-btn" class="btn btn-secondary">Search</button>
+
+            </div>
+        </div>
+        <div class="col-md-3 mb-4 ms-auto">
+            <label for="filter-dropdown" class="form-label">Sort by:</label>
+            <select name="filter-dropdown" class="form-select" id="filter-dropdown">
+                <option value="">Choose...</option>
+                <option value="1">Name</option>
+                <option value="2">Price</option>
+            </select>
+        </div>
         <div class="grid">
-            <div class="row">
-                <form method="get">
-                    {{ myFilter.form }}
-                    <button class="btn btn-primary" type="submit">Search</button>
-                </form><br/><br/>
+            <div class="row products">
                 {% for product in products %}
-                <div class="col-md-3 mb-4">
                     {% include 'products/single_product.html' with product=product %}
-                </div>
                 {% endfor %}
             </div>
         </div>
