@@ -7,5 +7,5 @@ urlpatterns = [
     path('', views.index, name='product-index'),
     path('<int:id>', views.get_product_by_id, name="product-details"),
     path('checkout/', CheckoutWizard.as_view([CheckoutForm1, CheckoutForm2, CheckoutForm3])),
-    path('create/', views.create, name="create_product")
+    path('create_product/', views.create, name="create_product")
 ]

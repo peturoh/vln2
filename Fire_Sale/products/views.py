@@ -1,9 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import products.forms
-from products.models import Product, OrderInformation
+from products.models import Product, OrderInformation, ProductImage
 from django.shortcuts import get_object_or_404
-from .filters import ProductFilter
+from products.forms import CreateItemForm
 from formtools.wizard.views import SessionWizardView
 
 
@@ -99,9 +100,22 @@ def index(request):
 #     return render(request, 'products/index.html',
 #                   {'products': Product.objects.all()})
 
-
+@login_required
 def create(request):
-    return render(request, 'products/create_product.html')
+    if request.method == 'POST':
+        form = CreateItemForm(data=request.POST)
+        if form.is_valid():
+            product = form.save()
+            product_image = ProductImage(image=request.POST['image'], product=product)
+            product_image.save()
+            return redirect('/')
+        else:
+            print('nononono')
+    else:
+        form = CreateItemForm()
+    return render(request, 'products/create_product.html', {
+        'form': form
+    })
 
 
 def get_product_by_id(request, id):

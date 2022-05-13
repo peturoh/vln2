@@ -20,7 +20,9 @@
         <div class="grid">
             <div class="row products">
                 {% for product in products %}
-                    {% include 'products/single_product.html' with product=product %}
+                    {% if product.on_sale %}
+                        {% include 'products/single_product.html' with product=product %}
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
