@@ -61,6 +61,32 @@ def index(request):
 
 
 @login_required
+def get_my_listings(request):
+    # my_products = Product.objects.filter(seller_id=request.user)
+
+    my_listings = [{
+        'id': x.id,
+        'firstImage': x.productimage_set.first().image,
+        'name': x.name,
+        'description': x.description
+    } for x in Product.objects.filter(seller_id=request.user)]
+
+    for listing in my_listings:
+
+        bids = ProductOffer.objects.filter(product_id=listing['id'])
+        if bids:
+            listing['all_bids'] = [{
+                'bid': x.id,
+                'bidder': x.bidder_id,
+                'amount': int(x.offer_amount)
+            } for x in bids]
+        else:
+            listing['all_bids'] = []
+
+    return render(request, 'products/my_listings.html',
+                  {'my_listings': my_listings})
+
+@login_required
 def create(request):
     if request.method == 'POST':
         form = CreateItemForm(data=request.POST)
