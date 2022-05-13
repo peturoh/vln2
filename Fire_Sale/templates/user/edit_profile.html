@@ -6,13 +6,13 @@
             <div class="card shadow-lg">
                 <div class="card-body">
                     <h1>Profile</h1>
+                        <input type="text" name="user" value="{{ request.user.id }}" hidden/>
                         <p> {{ form.user.as_hidden}} </p>
                         <h5>Edit Profile Image</h5>
                         <p> {{ form.profile_image }} </p>
                         <h5>Edit Biography</h5>
                         <p>{{ form.profile_bio }}</p>
-                        <p>{{ form.avg_rating.as_hidden }}</p>
-                        <input type="submit" class="btn btn-primary" value="Edit"/>
+                        <input type="submit" class="btn btn-primary" value="Save"/>
                 </div>
             </div>
         </div>
