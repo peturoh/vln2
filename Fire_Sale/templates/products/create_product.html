@@ -24,10 +24,9 @@
         <div class="mb-3">
             <input type="text" name="seller" class="form-control"  value="{{ request.user.id }}" hidden>
         </div>
-        <div class="mb-3">
-            <label for="on_sale">Put item up on sale</label>
-            <input type="checkbox" name="on_sale">
-        </div>
+
+        <input type="checkbox" name="on_sale" checked hidden>
+
         <br/>
         {{ form.errors }}
         <input type="submit" class="btn btn-primary" value="Create" />

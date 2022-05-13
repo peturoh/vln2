@@ -109,8 +109,6 @@ def create(request):
             product_image = ProductImage(image=request.POST['image'], product=product)
             product_image.save()
             return redirect('/')
-        else:
-            print('nononono')
     else:
         form = CreateItemForm()
     return render(request, 'products/create_product.html', {
