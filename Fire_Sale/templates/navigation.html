@@ -19,6 +19,9 @@
               <a class="nav-link" href="{% url 'logout' %}">Logout</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="{% url 'checkout' %}">Checkout</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{% url 'profile' %}"><img src="{{ user.profile.profile_image }}" class="mx-auto profile-image rounded-circle float-end" /></a>
             </li>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="16" fill="currentColor" class="bi bi-star-fill">
@@ -29,6 +32,7 @@
               {% else %}
                 {{ user.profile.avg_rating }}
               {% endif %}
+
           {% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'login' %}">Login</a>

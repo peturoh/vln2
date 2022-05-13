@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'products.apps.ProductsConfig',
     'user.apps.UserConfig',
-    'django_filters',
     'formtools'
 ]
 

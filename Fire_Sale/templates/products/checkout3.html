@@ -66,7 +66,10 @@
             </div>
         </div>
         <p>Do you confirm that the above information is correct? {{ wizard.form.accept }}</p>
-        <input class="btn btn-secondary" type="submit" value="{% trans "Submit" %}"/>
+        {% if wizard.steps.prev %}
+            <button class="btn btn-secondary" name="wizard_goto_step" formnovalidate="formnovalidate" type="submit" value="{{ wizard.steps.prev }}">{% trans "Previous step" %}</button>
+        {% endif %}
+        <input class="btn btn-secondary" type="submit" value="{% trans "Checkout" %}"/>
             </div>
         </div>
     </form>

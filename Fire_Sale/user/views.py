@@ -1,9 +1,9 @@
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect, get_object_or_404
+
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from user.forms.profile_form import ProfileForm
 from user.models import Profile
-from django.http import HttpResponse
+
 
 # Create your views here.
 def register(request):
