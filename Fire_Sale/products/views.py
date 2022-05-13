@@ -22,16 +22,12 @@ def index(request):
     if 'search_filter' in request.GET:
         search_filter = request.GET['search_filter']
 
-        print(search_filter)
-
         products_filter = [{
             'id': x.id,
             'firstImage': x.productimage_set.first().image,
             'name': x.name,
             'description': x.description
         } for x in Product.objects.filter(name__icontains=search_filter)]
-
-        print(products_filter)
 
         if 'sort_by' in request.GET:
             sort_by = request.GET['sort_by']
@@ -63,42 +59,6 @@ def index(request):
     return render(request, 'products/index.html',
                   {'products': Product.objects.all()})
 
-# DON'T DELETE YET JUST INCASE
-# def index(request):
-#     # products = Product.objects.all()
-#     # myFilter = ProductFilter(request.GET, queryset=products)
-#     # products = myFilter.qs
-#
-#     if 'search_filter' in request.GET:
-#         search_filter = request.GET['search_filter']
-#
-#         products_filter = [{
-#             'id': x.id,
-#             'firstImage': x.productimage_set.first().image,
-#             'name': x.name,
-#             'description': x.description
-#         } for x in Product.objects.filter(name__icontains=search_filter)]
-#         return JsonResponse({'data': products_filter, 'search': search_filter})
-#
-#     if 'sort_by' in request.GET:
-#         print()
-#         sort_by = request.GET['sort_by']
-#         print(sort_by)
-#         if sort_by == '1':
-#             print("asdf")
-#             products_filter = [{
-#                 'id': x.id,
-#                 'firstImage': x.productimage_set.first().image,
-#                 'name': x.name,
-#                 'description': x.description
-#             } for x in Product.objects.all().order_by('name')]
-#             print(products_filter)
-#             return JsonResponse({'data': products_filter})
-#             # print(products_filter)
-#             # return JsonResponse({'data': products_filter})
-#
-#     return render(request, 'products/index.html',
-#                   {'products': Product.objects.all()})
 
 @login_required
 def create(request):
@@ -137,7 +97,6 @@ def get_product_by_id(request, id):
 
 
 def place_bid(productid, bidder, amount):
-
     product_prev_bids = ProductOffer.objects.filter(product_id=productid)
     user_prev_bid = product_prev_bids.filter(bidder_id=bidder)
 
@@ -148,7 +107,6 @@ def place_bid(productid, bidder, amount):
         'amount': x.offer_amount
     } for x in user_prev_bid]
 
-    # If user had previously bid on this item
     if prev_bid:
         if amount > prev_bid[0]['amount']:
             user_prev_bid.update(offer_amount=amount)
@@ -160,14 +118,9 @@ def place_bid(productid, bidder, amount):
                     'message': 'Must be greater than your current bid: ' +
                     str(int(prev_bid[0]['amount'])) + ' ISK',
                     'product': prev_bid[0]['product']}
-
-    # Otherwise, try to create a new bid for the user
     else:
-
         bid_created = create_bid(productid, bidder, amount)
-
         if bid_created:
-
             return {'status': 'bid_success', 'bid_amount': int(amount), 'message': 'You have placed a new bid of: ' +
                     str(int(amount)) + ' ISK',
                     'product': productid}
@@ -178,20 +131,17 @@ def place_bid(productid, bidder, amount):
 
 
 def create_bid(productid, bidder, amount):
-
     product_offer = ProductOffer()
     product_offer.product_id = productid
     product_offer.bidder = bidder
     product_offer.offer_amount = amount
     product_offer.save()
-
     return product_offer
 
 
 def get_highest_bid(id):
     product_bids = ProductOffer.objects.filter(product_id=id)
     order_bids = product_bids.order_by('-offer_amount')
-
     sorted_bids = [{
         'id': x.id,
         'product': x.product_id,
@@ -204,6 +154,7 @@ def get_highest_bid(id):
     else:
         amount = 0
         return amount
+
 
 class CheckoutWizard(SessionWizardView):
     def get_context_data(self, form, **kwargs):

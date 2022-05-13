@@ -1,12 +1,14 @@
 {% load static %}
 <div class="col-md-3 mb-4">
     <div class="card shadow-lg">
-        <div class="card-body">
+        <div class="card-body align-items-center">
         <a href='/products/{{ product.id }}'>
-            <img class="img-fluid" src="{{ product.productimage_set.first.image }}" alt=""/>
+            <div class="w-100 text-center">
+                <img class="img-fluid" style="max-height: 400px" src="{{ product.productimage_set.first.image }}" alt=""/>
+            </div>
             <h4>{{ product.name }}</h4>
-            <p>{{ product.description }}</p>
         </a>
+            <p>{{ product.description }}</p>
         </div>
     </div>
 </div>
