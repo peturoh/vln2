@@ -65,8 +65,28 @@ $(document).ready(function() {
                         params.url = params.url = '/products?sort_by=' + selectedValue
                     }
         $.ajax(params)});
-    });
 
+    $('#place-bid-btn').on('click', function(e) {
+        e.preventDefault();
+        var bid_amount = $('#new-bid-amount').val();
+        var id = $('#product-id').val();
+        var csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+        $.ajax( {
+            url: '/products/' + id,
+            type: 'POST',
+            data: {'bid_amount': bid_amount, csrfmiddlewaretoken: csrf_token},
+            success: function(resp) {
+                $('#new-bid-amount').val("");
+                $('#highest-bid').html(resp.highest_bid);
+                $('#bid-status-message').html(resp.bid_status.message);
+                $('#bid-status-message').removeAttr('hidden');
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+});
 
 
 /* DON'T DELETE YET JUST INCASE

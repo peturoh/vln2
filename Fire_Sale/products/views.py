@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 import products.forms
-from products.models import Product, OrderInformation, ProductImage
+from products.models import Product, OrderInformation, ProductImage, ProductOffer
 from django.shortcuts import get_object_or_404
 from products.forms import CreateItemForm
 from formtools.wizard.views import SessionWizardView
@@ -117,10 +117,93 @@ def create(request):
 
 
 def get_product_by_id(request, id):
+
+    if request.method == 'POST':
+
+        bid_amount = request.POST.get('bid_amount')
+
+        if bid_amount != '':
+            bid_status = place_bid(id, request.user, float(bid_amount))
+            return JsonResponse({'bid_status': bid_status, 'highest_bid': int(get_highest_bid(id))})
+
+        else:
+            print('Please enter an amount to bid')
+
+        return JsonResponse({'highest_bid': int(get_highest_bid(id))})
+
     return render(request, 'products/product_details.html', {
-        'product': get_object_or_404(Product, pk=id)
+        'product': get_object_or_404(Product, pk=id), 'highest_bid': int(get_highest_bid(id))
     })
 
+
+def place_bid(productid, bidder, amount):
+
+    product_prev_bids = ProductOffer.objects.filter(product_id=productid)
+    user_prev_bid = product_prev_bids.filter(bidder_id=bidder)
+
+    prev_bid = [{
+        'id': x.id,
+        'product': x.product_id,
+        'bidder': x.bidder_id,
+        'amount': x.offer_amount
+    } for x in user_prev_bid]
+
+    # If user had previously bid on this item
+    if prev_bid:
+        if amount > prev_bid[0]['amount']:
+            user_prev_bid.update(offer_amount=amount)
+            return {'status': 'bid_updated', 'bid_amount': int(amount), 'message': 'You have increased your bid to: ' +
+                    str(int(amount)) + ' ISK',
+                    'product': prev_bid[0]['product']}
+        else:
+            return {'status': 'bid_unsuccessful', 'bid_amount': int(prev_bid[0]['amount']),
+                    'message': 'Must be greater than your current bid: ' +
+                    str(int(prev_bid[0]['amount'])) + ' ISK',
+                    'product': prev_bid[0]['product']}
+
+    # Otherwise, try to create a new bid for the user
+    else:
+
+        bid_created = create_bid(productid, bidder, amount)
+
+        if bid_created:
+
+            return {'status': 'bid_success', 'bid_amount': int(amount), 'message': 'You have placed a new bid of: ' +
+                    str(int(amount)) + ' ISK',
+                    'product': productid}
+        else:
+            return {'status': 'bid_unsuccessful', 'bid_amount': int(amount),
+                    'message': 'Unable to place your bid for: ' + str(int(amount)) + ' ISK',
+                    'product': productid}
+
+
+def create_bid(productid, bidder, amount):
+
+    product_offer = ProductOffer()
+    product_offer.product_id = productid
+    product_offer.bidder = bidder
+    product_offer.offer_amount = amount
+    product_offer.save()
+
+    return product_offer
+
+
+def get_highest_bid(id):
+    product_bids = ProductOffer.objects.filter(product_id=id)
+    order_bids = product_bids.order_by('-offer_amount')
+
+    sorted_bids = [{
+        'id': x.id,
+        'product': x.product_id,
+        'bidder': x.bidder_id,
+        'amount': int(x.offer_amount)
+    } for x in order_bids]
+
+    if sorted_bids:
+        return sorted_bids[0]['amount']
+    else:
+        amount = 0
+        return amount
 
 class CheckoutWizard(SessionWizardView):
     def get_context_data(self, form, **kwargs):
