@@ -7,9 +7,10 @@
                 <div class="card-body">
                     <h1>Profile</h1>
                         <fieldset disabled="disabled">
-                        <h3>Biography</h3>
+                        <h5>Username</h5>
                         <p> {{ form.user}} </p>
                         <p> {{ form.profile_image.as_hidden}} </p>
+                        <h5>Biography</h5>
                         <p>{{ form.profile_bio }}</p>
                         <p>{{ form.avg_rating.as_hidden }}</p>
                         </fieldset>
@@ -19,17 +20,14 @@
         </div>
     </form>
 {% endblock %}
+{#   <h1>Profile</h1>#}
+{#    <form class="form form-horizontal" method="post">#}
+{#        {% csrf_token %}#}
+{#        <div class="mb-3">#}
+{#            {{ form.as_p }}#}
+{#         </div>#}
+{#            <input type="submit" class="btn btn-primary" value="Update" />#}
+{#        </form>#}
+{#    </div>#}
+{#</div>#}
 
-
-<!--
-   <h1>Profile</h1>
-    <form class="form form-horizontal" method="post">
-        {% csrf_token %}
-        <div class="mb-3">
-            {{ form.as_p }}
-         </div>
-            <input type="submit" class="btn btn-primary" value="Update" />
-        </form>
-    </div>
-</div>
--->

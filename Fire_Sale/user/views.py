@@ -20,7 +20,7 @@ def register(request):
 def profile(request):
     profile_data = Profile.objects.filter(user=request.user).first()
     return render(request, 'user/profile.html', {
-        'form': ProfileForm(instance=profile_data)
+        'form': profile_data
     })
 
 def edit_profile(request):
@@ -31,7 +31,7 @@ def edit_profile(request):
             profile_data = form.save(commit=False)
             profile_data.user = request.user
             form.save()
-            return redirect('edit_profile')
+            return redirect('profile')
     else:
         form = ProfileForm(instance=profile_data, data=request.POST)
     return render(request, 'user/edit_profile.html', {
