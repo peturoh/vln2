@@ -1,7 +1,9 @@
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from user.forms import ProfileForm
 from user.models import Profile
+from django.http import HttpResponse
 
 def register(request):
     if request.method == 'POST':
