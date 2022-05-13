@@ -50,7 +50,6 @@ def edit_profile(request):
     if request.method == 'POST':
         form = ProfileForm(instance=profile_data, data=request.POST)
         form.user = request.user
-        print(form.user)
         if form.is_valid():
             profile_data = form.save(commit=False)
             profile_data.user = request.user
